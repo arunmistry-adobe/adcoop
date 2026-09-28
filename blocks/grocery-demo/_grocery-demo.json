@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Grocery Demo",
+      "id": "grocery-demo",
+      "model": "grocery-demo",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "grocery-demo",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

@@ -12,11 +12,20 @@
 
 /* stylelint-disable no-empty-source */
 :root, .dropin-design {
+  /* Adcoop demonstration brand tokens */
+  --adcoop-green-900: #064e35;
+  --adcoop-green-700: #087443;
+  --adcoop-green-500: #159455;
+  --adcoop-green-100: #e8f5ed;
+  --adcoop-yellow-500: #f5b335;
+  --adcoop-orange-500: #eb7729;
+  --adcoop-cream-50: #fffdf7;
+
   /* Adobe Commerce Dropin design tokens */
-  --color-brand-300: #6d6d6d;
-  --color-brand-500: #454545;
-  --color-brand-600: #383838;
-  --color-brand-700: #2b2b2b;
+  --color-brand-300: #69ad86;
+  --color-brand-500: var(--adcoop-green-500);
+  --color-brand-600: var(--adcoop-green-700);
+  --color-brand-700: var(--adcoop-green-900);
   --color-neutral-50: #fff;
   --color-neutral-100: #fafafa;
   --color-neutral-200: #f5f5f5;
@@ -126,7 +135,7 @@
 
   /* Additional tokens */
   --type-fixed-font-family: adobe-clean, "Roboto Mono", menlo, consolas, "Liberation Mono", monospace, system-ui, sans-serif;
-  --background-color: var(--color-neutral-50);
+  --background-color: var(--adcoop-cream-50);
   --nav-height: 6.4rem;
 }
 

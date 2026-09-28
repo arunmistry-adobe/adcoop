@@ -45,6 +45,9 @@
           "...": "../blocks/fragment/_*.json#/definitions"
         },
         {
+          "...": "../blocks/grocery-demo/_*.json#/definitions"
+        },
+        {
           "...": "../blocks/hero/_*.json#/definitions"
         },
         {
