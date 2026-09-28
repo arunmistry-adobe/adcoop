@@ -13,6 +13,48 @@ Before using the boilerplate, we recommend you to go through the documentation o
 1. [Web Performance](https://www.aem.live/developer/keeping-it-100)
 1. [Markup, Sections, Blocks, and Auto Blocking](https://www.aem.live/developer/markup-sections-blocks)
 
+## Adcoop UAE D1 grocery demonstration
+
+The `grocery-demo` block is a self-contained, bilingual English/Arabic vertical slice for stakeholder demonstrations. It deliberately does not replace or modify the ACCS product discovery, cart, checkout, order, authentication, or payment drop-ins used elsewhere in this repository.
+
+### Capability and gap legend
+
+| D1 capability | Status | Implementation |
+| --- | --- | --- |
+| Existing ACCS catalog, cart, account, checkout, and payment drop-ins | **Live/configured** | Existing blocks and `config.json`; unchanged by this milestone |
+| Responsive Adcoop-themed shell, search/browse, Buy Again, weighted quantity controls, promotions, member prices, substitutions, cart preferences, and order review | **Prototype** | `blocks/grocery-demo` |
+| English/Arabic switch and RTL layout | **Prototype** | Client-side demo locale with persisted language preference |
+| Representative grocery catalog and loyalty profile | **Prototype data** | `scripts/demo/grocery-products.json` and `loyalty` adapter |
+| Loyalty balance/member pricing | **Integration required** | Replace the demo `loyalty` adapter with the approved loyalty service |
+| Substitution recommendations and final picked weight | **Integration required** | Replace the demo `substitutions` adapter and connect picker/OMS events |
+| Scheduled-delivery capacity and reservation | **Integration required** | Replace the demo `deliveryCapacity` adapter with the delivery-capacity service |
+| Payment settlement | **Not simulated** | Existing ACCS checkout remains the only payment path; the grocery demo explicitly stops before settlement |
+| Order placement, editing, inventory/price revalidation | **Prototype concept** | Demo-only confirmation and revalidation boundary; requires OMS and Commerce APIs |
+
+All simulated surfaces carry a visible **Demonstration mode · representative data** label. `scripts/demo/grocery-services.js` is the explicit replacement boundary for production loyalty, substitution, delivery-capacity, checkout revalidation, and OMS integrations.
+
+### Demo runbook
+
+1. Install dependencies with `npm install`.
+2. Start the local server with the static authoring fixture:
+   ```bash
+   npx -y @adobe/aem-cli up --no-open --forward-browser-logs --html-folder drafts
+   ```
+3. Open the URL printed by the CLI with `/drafts/grocery-demo` appended (for example, `http://localhost:3000/drafts/grocery-demo`; worktrees may use a different port).
+4. Switch to Arabic to verify right-to-left layout. Search or filter the catalog, open **Buy Again**, add a weighted item, and select substitution preferences.
+5. Open the unavailable **Large Eggs** product to choose a recommended substitute.
+6. Select a delivery window, review the order, simulate placement, then use the order-edit revalidation concept.
+
+Run `npm run test:demo` for the representative-data contract and `npm run lint` for project linting.
+
+### AEM authoring and deployment
+
+Add an empty **Grocery Demo** block to an AEM page and preview/publish the page. The block model is included in the generated component definitions. For a code-only feature preview, push the feature branch and use:
+
+`https://{branch}--adcoop--arunmistry-adobe.aem.page/{authored-page-path}`
+
+The `drafts/grocery-demo.html` fixture is local-only and must not be presented as published CMS content. Before production use, replace demo adapters with approved services, complete Arabic copy review, connect catalog SKUs, validate legal/promotion content, and complete payment and OMS certification.
+
 ## Getting Started
 
 Use the [Site Creator Tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator) to quickly spin up your own copy of code and content.

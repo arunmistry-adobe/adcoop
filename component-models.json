@@ -427,6 +427,10 @@
     ]
   },
   {
+    "id": "grocery-demo",
+    "fields": []
+  },
+  {
     "id": "hero",
     "fields": [
       {
