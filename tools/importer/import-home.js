@@ -118,20 +118,20 @@ function getLanguage(document, originalURL) {
 }
 
 /**
- * SVGs on the ADCOOP S3 bucket are hotlink-protected (only served to corporate.adcoop.com),
- * so reference local copies in the page's images folder instead. The files are downloaded by
- * tools/importer/fetch-protected-images.mjs after the import.
+ * ADCOOP's SVG artwork is hotlink-protected (only served to corporate.adcoop.com) and each file
+ * wraps a large embedded photo that Document Authoring rejects. Reference a local PNG rendering
+ * in the page's images folder instead; tools/importer/fetch-protected-images.mjs downloads and
+ * renders the files after the import.
  */
-const PROTECTED_IMAGE_HOST = 'prod-mairgroup.s3.eu-north-1.amazonaws.com';
+const LOCALIZED_SVG_HOSTS = ['prod-mairgroup.s3.eu-north-1.amazonaws.com', 'corporate.adcoop.com'];
 
 function localizeProtectedImages(main) {
   main.querySelectorAll('img[src]').forEach((img) => {
     try {
       const src = new URL(img.getAttribute('src'));
-      if (src.hostname !== PROTECTED_IMAGE_HOST || !/\.svg$/i.test(src.pathname)) return;
-      const file = src.pathname.split('/').pop();
-      // keep a query string so the SVG stays an image (bare .svg is treated as an icon)
-      img.setAttribute('src', `./images/${file}?format=svg`);
+      if (!LOCALIZED_SVG_HOSTS.includes(src.hostname) || !/\.svg$/i.test(src.pathname)) return;
+      const name = src.pathname.split('/').pop().replace(/\.svg$/i, '');
+      img.setAttribute('src', `./images/${name}.png`);
       img.removeAttribute('srcset');
     } catch (e) {
       // leave relative or invalid URLs untouched
