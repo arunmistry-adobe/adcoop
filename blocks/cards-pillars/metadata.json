@@ -1,0 +1,21 @@
+{
+  "variantName": "cards-pillars",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "purple",
+    "density": "medium",
+    "purpose": "brand-pillars",
+    "imagePattern": "background-image-or-empty",
+    "structure": "image + h3 + text + cta",
+    "notes": "4 tall portrait purple tiles in a horizontally scrolling row, optional image behind the text, clamped description, separate full-width Learn more bar with arrow below each tile; a standalone sculpture image (default content) sits beside the row"
+  },
+  "contentPattern": "Cards (2 columns per row): cell 1 = image (may be empty); cell 2 = H3 title, description paragraph, 'Learn more' link. 4 rows.",
+  "options": [],
+  "memberVariantIds": ["cards-pillars"],
+  "usage": {
+    "pagesUsing": ["https://corporate.adcoop.com/en#home", "https://corporate.adcoop.com/ar#home"],
+    "reuseCount": 0,
+    "lastUsed": "2026-09-29"
+  }
+}

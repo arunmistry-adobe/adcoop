@@ -9,6 +9,8 @@ import {
 import createModal from '../modal/modal.js';
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import { getLanguageRoot } from '../../scripts/i18n.js';
+import renderLocalizedFooter from './renderLocalizedFooter.js';
 
 /**
  * Toggles all storeSelector sections
@@ -28,10 +30,17 @@ function toggleStoreDropdown(sections, expanded = false) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
+  // pages inside a language folder (/en/, /ar/) use the localized site footer
+  if (getLanguageRoot() !== '/') {
+    const localizedFooter = await loadFragment(`${getLanguageRoot()}footer`);
+    if (localizedFooter) await renderLocalizedFooter(block, localizedFooter);
+    return;
+  }
+
   const root = getRootPath();
   // Load Footer as Fragment
   const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
+  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : `${getLanguageRoot()}footer`;
   const fragment = await loadFragment(footerPath);
 
   // decorate footer DOM

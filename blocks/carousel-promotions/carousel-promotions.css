@@ -1,0 +1,264 @@
+/* Latest Promotions: flyer image + stacked CTA buttons, optional prev/next */
+.carousel-promotions {
+  position: relative;
+  margin-block-start: 16px;
+
+  /* the decorative burst may reach past the viewport edge (source section clips it too) */
+  overflow-x: clip;
+}
+
+/* prev/next sit in the heading row, aligned with the section h2 */
+.carousel-promotions .carousel-promotions-controls {
+  position: absolute;
+  inset-block-start: calc(-16px - var(--heading-line-height-xl, 41px) / 2);
+  inset-inline-end: -8px;
+  z-index: 1;
+  display: flex;
+  gap: 0;
+  transform: translateY(-50%);
+}
+
+.carousel-promotions .carousel-promotions-prev,
+.carousel-promotions .carousel-promotions-next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #c5b4e3;
+  cursor: pointer;
+}
+
+.carousel-promotions .carousel-promotions-prev:disabled,
+.carousel-promotions .carousel-promotions-next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel-promotions .carousel-promotions-prev:focus-visible,
+.carousel-promotions .carousel-promotions-next:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+/* chevron glyph (source SVG, 16x28) drawn with a mask so it follows currentcolor */
+.carousel-promotions .carousel-promotions-prev::before,
+.carousel-promotions .carousel-promotions-next::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 28'%3E%3Cpath d='M15.11.67a2.26 2.26 0 0 0-3.2 0L.67 11.92a2.26 2.26 0 0 0 0 3.19l11.25 11.25a2.26 2.26 0 0 0 3.2-3.2L5.44 13.51l9.67-9.65a2.26 2.26 0 0 0 0-3.2Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* prev points to the reading start, next to the reading end; mirrored in RTL */
+.carousel-promotions .carousel-promotions-next::before,
+[dir='rtl'] .carousel-promotions .carousel-promotions-prev::before {
+  transform: scaleX(-1);
+}
+
+[dir='rtl'] .carousel-promotions .carousel-promotions-next::before {
+  transform: none;
+}
+
+.carousel-promotions .carousel-promotions-track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: inline mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+
+.carousel-promotions .carousel-promotions-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-promotions.carousel-promotions-single .carousel-promotions-track {
+  overflow: visible;
+}
+
+.carousel-promotions .carousel-promotions-slide {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+/* flyer: shrink-wraps the image so the decorative burst anchors to its edge */
+.carousel-promotions .carousel-promotions-image {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.carousel-promotions .carousel-promotions-image img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 350px;
+}
+
+/* lime "burst" beside the flyer (source promoAnimation.svg); physical right as on source (en + ar) */
+.carousel-promotions .carousel-promotions-image::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 24px;
+  right: 0;
+  width: 113px;
+  height: 56px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 113 127' fill='none' stroke='%23dee541' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M14.28 55.1 46.29 4.31M31.84 75.32l55.93-21.61M26.47 101.45l51.85 21.25'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translateX(70%);
+  pointer-events: none;
+}
+
+.carousel-promotions .carousel-promotions-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  margin-block-start: 16px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-size);
+  font-weight: 600;
+  line-height: var(--body-line-height);
+  text-align: start;
+}
+
+.carousel-promotions .carousel-promotions-content p {
+  margin: 0;
+}
+
+/* CTA: 56px lime icon square + lavender label, square corners */
+.carousel-promotions .carousel-promotions-cta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 56px;
+  margin: 0;
+  padding: 0;
+  padding-inline-end: 12px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--brand-lavender);
+  color: #fff;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.carousel-promotions .carousel-promotions-cta::before {
+  content: '';
+  flex: 0 0 56px;
+  align-self: stretch;
+  width: 56px;
+  min-height: 56px;
+  background-color: var(--brand-lime);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.carousel-promotions .carousel-promotions-cta-whatsapp::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 33 33'%3E%3Cpath fill='%234e3080' d='M27.96 4.98A15.94 15.94 0 0 0 16.56.25C7.69.25.46 7.48.46 16.35c0 2.85.75 5.61 2.15 8.05L.33 32.75l8.53-2.24a16.1 16.1 0 0 0 7.7 1.96c8.87 0 16.1-7.23 16.1-16.1 0-4.3-1.67-8.35-4.7-11.39Zm-11.4 24.76c-2.4 0-4.76-.65-6.82-1.87l-.49-.29-5.07 1.33 1.35-4.94-.33-.5a13.36 13.36 0 0 1-2.05-7.12c0-7.38 6.02-13.39 13.4-13.39a13.3 13.3 0 0 1 9.45 3.93 13.3 13.3 0 0 1 3.92 9.47c.03 7.38-5.98 13.38-13.36 13.38Zm7.35-10.01c-.41-.2-2.39-1.17-2.75-1.32-.37-.13-.63-.19-.91.2-.28.4-1.04 1.31-1.27 1.57-.23.28-.47.31-.88.1-.4-.2-1.7-.63-3.23-2-1.2-1.07-2-2.39-2.24-2.8-.23-.4-.03-.61.18-.82.18-.18.4-.47.6-.7.2-.23.28-.4.41-.67.13-.27.07-.5-.03-.7-.1-.19-.91-2.18-1.24-2.99-.32-.78-.67-.68-.91-.7h-.78c-.28 0-.7.1-1.07.51-.36.4-1.4 1.38-1.4 3.36 0 1.99 1.45 3.9 1.64 4.16.2.28 2.85 4.34 6.88 6.08.96.42 1.7.66 2.29.84.96.31 1.84.26 2.54.16.78-.11 2.39-.97 2.71-1.91.34-.94.34-1.74.23-1.92-.11-.18-.36-.26-.77-.45Z'/%3E%3C/svg%3E");
+  background-size: 33px 33px;
+}
+
+.carousel-promotions .carousel-promotions-cta-download::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19 29' fill='none'%3E%3Cpath d='M0 28h19' stroke='%234e3080' stroke-width='2'/%3E%3Cpath d='M8.81 17.52V.5h1.38v18.21l.85-.84 6.28-6.18.97.95-8.78 8.66-8.8-8.66.97-.95 6.28 6.18.85.84v-1.19Z' fill='%234e3080' stroke='%234e3080'/%3E%3C/svg%3E");
+  background-size: 19px 29px;
+}
+
+.carousel-promotions .carousel-promotions-cta:hover,
+.carousel-promotions .carousel-promotions-cta:focus {
+  color: #fff;
+  text-decoration: none;
+}
+
+.carousel-promotions .carousel-promotions-cta:focus-visible {
+  outline: 2px solid var(--brand-lime);
+  outline-offset: 2px;
+}
+
+/* visually hidden live region */
+.carousel-promotions .carousel-promotions-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .carousel-promotions {
+    margin-block-start: 32px;
+  }
+
+  .carousel-promotions .carousel-promotions-controls {
+    inset-block-start: calc(-32px - var(--heading-line-height-xl, 41px) / 2);
+  }
+
+  .carousel-promotions .carousel-promotions-image img {
+    max-height: 450px;
+  }
+
+  .carousel-promotions .carousel-promotions-image::after {
+    inset-block-start: 28px;
+    height: 80px;
+  }
+
+  .carousel-promotions .carousel-promotions-cta {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 900px) {
+  .carousel-promotions .carousel-promotions-controls {
+    inset-inline-end: -14px;
+    gap: 12px;
+  }
+
+  .carousel-promotions .carousel-promotions-prev,
+  .carousel-promotions .carousel-promotions-next {
+    width: 44px;
+    height: 44px;
+  }
+
+  .carousel-promotions .carousel-promotions-prev::before,
+  .carousel-promotions .carousel-promotions-next::before {
+    height: 28px;
+  }
+
+  .carousel-promotions .carousel-promotions-slide {
+    flex-direction: row;
+    gap: 96px;
+  }
+
+  .carousel-promotions .carousel-promotions-content {
+    margin-block-start: 0;
+    margin-inline-start: -40px;
+  }
+
+  .carousel-promotions .carousel-promotions-cta {
+    gap: 20px;
+    padding-inline-end: 20px;
+  }
+}

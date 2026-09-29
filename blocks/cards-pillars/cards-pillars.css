@@ -1,0 +1,222 @@
+/* Who We Are section: sculpture image (default content) + overflowing tile row */
+.localized main > .section.cards-pillars-container {
+  box-sizing: border-box;
+  position: relative;
+  min-block-size: 100vh;
+  padding-block-end: 0;
+  overflow: hidden;
+}
+
+/* sculpture image paragraph: hidden on mobile like the source */
+.localized main > .section.cards-pillars-container .default-content-wrapper > p:has(> picture) {
+  display: none;
+}
+
+.localized main > .section.cards-pillars-container > .cards-pillars-wrapper {
+  margin-block-start: 40px;
+  padding: 0;
+}
+
+.cards-pillars .cards-pillars-list {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--section-padding-inline);
+  list-style: none;
+  overflow-x: auto;
+  scroll-padding-inline: var(--section-padding-inline);
+  scroll-snap-type: inline mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+
+.cards-pillars .cards-pillars-list::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-pillars .cards-pillars-item {
+  display: flex;
+  flex: 0 0 270px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  block-size: 405px;
+  scroll-snap-align: start;
+}
+
+/* text sits on purple at the top; the photo fills the space below it (no overlap) */
+.cards-pillars .cards-pillars-tile {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-block-size: 0;
+  overflow: hidden;
+  background-color: var(--brand-purple);
+  color: #fff;
+}
+
+.cards-pillars .cards-pillars-image {
+  flex: 1 1 0;
+  order: 2;
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.cards-pillars .cards-pillars-image picture,
+.cards-pillars .cards-pillars-image img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.cards-pillars .cards-pillars-image img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.cards-pillars .cards-pillars-body {
+  flex: none;
+  order: 1;
+  padding: 16px;
+  text-align: start;
+}
+
+.cards-pillars .cards-pillars-body h2,
+.cards-pillars .cards-pillars-body h3,
+.cards-pillars .cards-pillars-body h4 {
+  margin: 0;
+  color: inherit;
+  font-size: 14.525px;
+  line-height: 1.5;
+}
+
+.cards-pillars .cards-pillars-text {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 4px 0 0;
+  color: inherit;
+  font-size: var(--body-size);
+  line-height: var(--body-line-height);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+}
+
+.cards-pillars .cards-pillars-cta {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  block-size: 42px;
+  padding-block: 0;
+  padding-inline: 16px;
+  background-color: var(--brand-purple);
+  color: #fff;
+  font-size: var(--body-size);
+  font-weight: 700;
+  line-height: var(--body-line-height);
+  text-decoration: none;
+}
+
+/* north-east arrow (source keeps the same glyph in RTL) */
+.cards-pillars .cards-pillars-cta::after {
+  content: '';
+  flex: none;
+  inline-size: 16px;
+  block-size: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 21'%3E%3Cpath fill='white' d='M19.7188 0.792987L4.04002 0.885762L4.02694 3.09646L15.9192 3.03393L0.0136423 18.9395L1.57224 20.4981L17.4778 4.59253L17.4153 16.4848L19.626 16.4717L19.7188 0.792987Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+@media (min-width: 900px) {
+  .localized main > .section.cards-pillars-container {
+    block-size: 100vh;
+  }
+
+  .localized main > .section.cards-pillars-container .default-content-wrapper > p:has(> picture) {
+    display: block;
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    max-inline-size: 50%;
+    margin: 0;
+  }
+
+  .localized main > .section.cards-pillars-container .default-content-wrapper > p:has(> picture) img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* tile row floats over the section's lower half, beside the sculpture */
+  .localized main > .section.cards-pillars-container > .cards-pillars-wrapper {
+    position: absolute;
+    inset-block-start: 85%;
+    inset-inline: 0;
+    margin: 0;
+    translate: 0 -85%;
+  }
+
+  .cards-pillars .cards-pillars-list {
+    padding-inline: calc(40% + 16px) 166px;
+    scroll-padding-inline-start: calc(40% + 16px);
+  }
+
+  .cards-pillars .cards-pillars-item {
+    flex-basis: 200px;
+    block-size: 290px;
+  }
+
+  .cards-pillars .cards-pillars-body h2,
+  .cards-pillars .cards-pillars-body h3,
+  .cards-pillars .cards-pillars-body h4 {
+    font-size: 19.28px;
+    line-height: 28.92px;
+  }
+
+  .cards-pillars .cards-pillars-text {
+    font-size: 15.76px;
+    line-height: 23.64px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .cards-pillars .cards-pillars-cta {
+    block-size: 39px;
+    font-size: 15.76px;
+    line-height: 23.64px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .localized main > .section.cards-pillars-container .default-content-wrapper > p:has(> picture) {
+    max-inline-size: 40%;
+  }
+
+  .cards-pillars .cards-pillars-item {
+    flex-basis: 260px;
+    block-size: 350px;
+  }
+
+  .cards-pillars .cards-pillars-body h2,
+  .cards-pillars .cards-pillars-body h3,
+  .cards-pillars .cards-pillars-body h4 {
+    font-size: var(--heading-size-m);
+    line-height: var(--heading-line-height-m);
+  }
+
+  .cards-pillars .cards-pillars-text {
+    font-size: var(--body-size);
+    line-height: var(--body-line-height);
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+
+  .cards-pillars .cards-pillars-cta {
+    block-size: 41px;
+    font-size: var(--body-size);
+    line-height: var(--body-line-height);
+  }
+}

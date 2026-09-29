@@ -1,0 +1,21 @@
+{
+  "variantName": "cards-business",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "on-purple",
+    "density": "minimal",
+    "purpose": "business-lines",
+    "imagePattern": "full-tile-background",
+    "structure": "image + linked h3",
+    "notes": "2-up grid of wide short banner tiles, photo background with white overlaid title, whole tile clickable"
+  },
+  "contentPattern": "Cards (2 columns per row): cell 1 = image; cell 2 = H3 containing a link (e.g. /our-business#our-retails). The block makes the whole tile clickable. 2 rows.",
+  "options": [],
+  "memberVariantIds": ["cards-business"],
+  "usage": {
+    "pagesUsing": ["https://corporate.adcoop.com/en#home", "https://corporate.adcoop.com/ar#home"],
+    "reuseCount": 0,
+    "lastUsed": "2026-09-29"
+  }
+}

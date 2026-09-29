@@ -21,6 +21,7 @@ import {
   IS_UE,
   IS_DA,
 } from './commerce.js';
+import { decorateLanguage } from './i18n.js';
 
 /*
  * Trusted Types default policy.
@@ -198,7 +199,7 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  decorateLanguage();
   decorateTemplateAndTheme();
 
   const main = doc.querySelector('main');

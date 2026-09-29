@@ -125,6 +125,7 @@
   --type-details-overline-letter-spacing: 0.16em;
 
   /* Additional tokens */
+  --type-brand-font-family: system-ui, "Segoe UI", tahoma, arial, sans-serif;
   --type-fixed-font-family: adobe-clean, "Roboto Mono", menlo, consolas, "Liberation Mono", monospace, system-ui, sans-serif;
   --background-color: var(--color-neutral-50);
   --nav-height: 6.4rem;
@@ -164,6 +165,11 @@ body:not(.appear) {
 header {
   grid-row: 1;
   height: var(--nav-height);
+}
+
+/* localized pages: the header is fixed and overlays the page */
+.localized header {
+  height: 0;
 }
 
 main {
@@ -378,7 +384,6 @@ button.button.secondary:focus-visible {
   color: var(--color-brand-600);
 }
 
-
 main input:hover {
   border: var(--shape-border-width-1) solid var(--color-neutral-700);
 }
@@ -480,6 +485,127 @@ main > .section:first-of-type {
   }
 }
 
+/* ADCOOP brand tokens - applied to localized pages (/en/, /ar/) only */
+.localized {
+  --brand-purple: #4e3080;
+  --brand-lime: #dee541;
+  --brand-lavender: #9063cd;
+  --heading-font-family: var(--type-brand-font-family);
+  --body-font-family: var(--type-brand-font-family);
+  --background-color: #fff;
+  --text-color: #000;
+  --heading-color: #212121;
+  --muted-text-color: #606060;
+  --link-color: var(--brand-purple);
+  --link-hover-color: var(--brand-lavender);
+  --section-padding-inline: 18px;
+  --section-padding-block: 64px;
+  --heading-size-xl: 27.44px;
+  --heading-line-height-xl: 41.17px;
+  --heading-size-l: 21.24px;
+  --heading-line-height-l: 31.86px;
+  --heading-size-m: 22.4px;
+  --heading-line-height-m: 33.6px;
+  --body-size: 14.14px;
+  --body-line-height: 21.2px;
+}
+
+@media (min-width: 900px) {
+  .localized {
+    --section-padding-inline: 40px;
+    --section-padding-block: 96px;
+    --heading-size-xl: 55.4px;
+    --heading-line-height-xl: 83.1px;
+    --heading-size-l: 45.2px;
+    --heading-line-height-l: 67.8px;
+    --body-size: 16.8px;
+    --body-line-height: 25.2px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .localized {
+    --section-padding-inline: 88px;
+  }
+}
+
+/* ADCOOP localized pages (/en/, /ar/) */
+html.localized body {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+html.localized main > .section {
+  margin: 0;
+  padding: var(--section-padding-block) 0;
+}
+
+html.localized main > .section > div {
+  max-width: none;
+  padding: 0 var(--section-padding-inline);
+}
+
+html.localized main > .section.hero-fullbleed-container {
+  padding: 0;
+}
+
+html.localized main > .section.purple {
+  background-color: var(--brand-purple);
+  color: #fff;
+}
+
+html.localized main h1,
+html.localized main h2,
+html.localized main h3,
+html.localized main h4 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
+html.localized main .default-content-wrapper h2 {
+  font-size: var(--heading-size-xl);
+  line-height: var(--heading-line-height-xl);
+}
+
+html.localized main .default-content-wrapper p {
+  margin: 0;
+  font-size: var(--body-size);
+  line-height: var(--body-line-height);
+}
+
+html.localized main .default-content-wrapper p + p,
+html.localized main .default-content-wrapper h2 + p {
+  margin-block-start: 8px;
+}
+
+/* who we are: smaller heading, muted intro */
+html.localized main .cards-pillars-container .default-content-wrapper h2 {
+  color: var(--heading-color);
+  font-size: var(--heading-size-l);
+  line-height: var(--heading-line-height-l);
+}
+
+html.localized main .cards-pillars-container .default-content-wrapper p {
+  max-width: 80%;
+  color: var(--muted-text-color);
+}
+
+html.localized main .cards-pillars-container .default-content-wrapper h2 + p {
+  margin-block-start: 0;
+}
+
+@media (min-width: 900px) {
+  html.localized main .cards-business-container .default-content-wrapper,
+  html.localized main .accordion-stores-container .default-content-wrapper {
+    text-align: center;
+  }
+}
+
 /* section metadata - styles - start */
 main .section.light,
 main .section.highlight {
@@ -527,7 +653,6 @@ main .section[data-padding="xhuge"] {
 main .section[data-padding="xxhuge"] {
     padding: var(--spacing-xxhuge) 0;
 }
-
 
 main .section[data-margin="small"] {
     margin: var(--spacing-xsmall) 0;
@@ -648,3 +773,4 @@ body.columns main > .section:empty {
 main[hidden] {
   display: none !important;
 }
+
