@@ -571,6 +571,175 @@
               "type": "key-value-block"
             }
           }
+        },
+        {
+          "title": "Hero (full-bleed)",
+          "id": "hero-fullbleed",
+          "model": "hero-fullbleed",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div>div>p>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div>div>p>picture>img[alt]"
+                },
+                {
+                  "name": "title",
+                  "selector": "div>div>h1"
+                },
+                {
+                  "name": "text",
+                  "selector": "div>div>h1+p"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Pillar Cards",
+          "id": "cards-pillars",
+          "filter": "cards-pillars",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Pillar Card",
+          "id": "cards-pillars-item",
+          "model": "cards-pillars-item",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Business Tiles",
+          "id": "cards-business",
+          "filter": "cards-business",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Business Tile",
+          "id": "cards-business-item",
+          "model": "cards-business-item",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Promotions Carousel",
+          "id": "carousel-promotions",
+          "filter": "carousel-promotions",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Promotion",
+          "id": "carousel-promotions-item",
+          "model": "carousel-promotions-item",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Store Locator",
+          "id": "accordion-stores",
+          "filter": "accordion-stores",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Store",
+          "id": "accordion-stores-item",
+          "model": "accordion-stores-item",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "name",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "details",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
         }
       ]
     },

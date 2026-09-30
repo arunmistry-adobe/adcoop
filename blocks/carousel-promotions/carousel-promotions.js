@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/ue-utils.js';
 
 const DEFAULT_LABELS = {
   en: {
@@ -55,6 +56,8 @@ function createSlide(row, index, id) {
   slide.className = 'carousel-promotions-slide';
   slide.id = `carousel-promotions-${id}-slide-${index}`;
   slide.dataset.slideIndex = index;
+  // keep Universal Editor instrumentation on the rebuilt slide
+  moveInstrumentation(row, slide);
 
   const media = document.createElement('div');
   media.className = 'carousel-promotions-image';
@@ -82,6 +85,7 @@ function createSlide(row, index, id) {
         { width: '600' },
       ])
       : picture);
+    if (img) moveInstrumentation(img, media.querySelector('img'));
     slide.append(media);
   }
   if (content.children.length) {
