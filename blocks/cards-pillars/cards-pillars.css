@@ -7,6 +7,11 @@
   overflow: hidden;
 }
 
+/* Universal Editor grows its canvas with the page: cap the viewport height to stop a resize loop */
+.ue-canvas.localized main > .section.cards-pillars-container {
+  min-block-size: min(100vh, 900px);
+}
+
 /* sculpture image paragraph: hidden on mobile like the source */
 .localized main > .section.cards-pillars-container .default-content-wrapper > p:has(> picture) {
   display: none;
@@ -145,6 +150,10 @@
 @media (min-width: 900px) {
   .localized main > .section.cards-pillars-container {
     block-size: 100vh;
+  }
+
+  .ue-canvas.localized main > .section.cards-pillars-container {
+    block-size: min(100vh, 900px);
   }
 
   .localized main > .section.cards-pillars-container .default-content-wrapper > p:has(> picture) {

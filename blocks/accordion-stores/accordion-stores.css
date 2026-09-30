@@ -368,6 +368,11 @@
     max-height: 60vh;
   }
 
+  /* Universal Editor grows its canvas with the page: cap the viewport height to stop a resize loop */
+  .ue-canvas .accordion-stores .accordion-stores-list {
+    max-height: min(60vh, 540px);
+  }
+
   /* map fills the row height set by the list column */
   .accordion-stores .accordion-stores-map {
     grid-column: span 8;
