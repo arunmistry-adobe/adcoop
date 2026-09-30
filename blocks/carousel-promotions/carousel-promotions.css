@@ -155,7 +155,9 @@
   padding-inline-end: 12px;
   border: 0;
   border-radius: 0;
-  background-color: var(--brand-lavender);
+
+  /* slightly darker than the source lavender (#9063cd) so white text passes 4.5:1 */
+  background-color: #8a5bc9;
   color: #fff;
   font: inherit;
   text-align: start;

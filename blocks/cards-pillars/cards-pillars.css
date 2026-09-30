@@ -121,6 +121,18 @@
   text-decoration: none;
 }
 
+/* tile title appended to "Learn more" for assistive tech and link-text checks */
+.cards-pillars .cards-pillars-cta-context {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* north-east arrow (source keeps the same glyph in RTL) */
 .cards-pillars .cards-pillars-cta::after {
   content: '';

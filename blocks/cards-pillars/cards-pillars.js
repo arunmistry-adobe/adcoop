@@ -61,9 +61,13 @@ export default function decorate(block) {
       } else {
         cta.remove();
       }
+      // give each "Learn more" link its tile's context (visually hidden, part of the link text)
       const title = body.querySelector('h1, h2, h3, h4, h5, h6');
-      if (title && !cta.getAttribute('aria-label')) {
-        cta.setAttribute('aria-label', `${cta.textContent.trim()}: ${title.textContent.trim()}`);
+      if (title) {
+        const context = document.createElement('span');
+        context.className = 'cards-pillars-cta-context';
+        context.textContent = `: ${title.textContent.trim()}`;
+        cta.append(context);
       }
       ctaEl = cta;
     }
