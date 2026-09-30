@@ -4,11 +4,11 @@
  * https://www.aem.live/developer/block-collection/fragment
  */
 
-import { getRootPath } from '@dropins/tools/lib/aem/configs.js';
 import { decorateMain } from '../../scripts/scripts.js';
 import {
   loadSections,
 } from '../../scripts/aem.js';
+import { isLocalizedPage } from '../../scripts/i18n.js';
 
 /**
  * Loads a fragment.
@@ -17,7 +17,12 @@ import {
  */
 export async function loadFragment(path) {
   if (path && path.startsWith('/') && !path.startsWith('//')) {
-    const root = getRootPath().replace(/\/$/, '');
+    // corporate (localized) pages don't load the storefront config; their paths are site-absolute
+    let root = '';
+    if (!isLocalizedPage()) {
+      const { getRootPath } = await import('@dropins/tools/lib/aem/configs.js');
+      root = getRootPath().replace(/\/$/, '');
+    }
     const url = `${root}${path}.plain.html`;
     const resp = await fetch(url);
     if (resp.ok) {

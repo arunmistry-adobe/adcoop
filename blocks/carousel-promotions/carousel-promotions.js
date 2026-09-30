@@ -1,5 +1,4 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { fetchPlaceholders } from '../../scripts/commerce.js';
 
 const DEFAULT_LABELS = {
   en: {
@@ -22,25 +21,11 @@ let instanceCount = 0;
 
 const isRtl = (el) => getComputedStyle(el).direction === 'rtl';
 
-async function getLabels(block) {
+function getLabels(block) {
   const lang = (document.documentElement.lang || '').toLowerCase().startsWith('ar') || isRtl(block)
     ? 'ar'
     : 'en';
-  const defaults = DEFAULT_LABELS[lang];
-  let placeholders = {};
-  try {
-    placeholders = (await fetchPlaceholders()) || {};
-  } catch {
-    // placeholders are optional
-  }
-  const { carousel: regionLabel } = placeholders;
-  return {
-    region: regionLabel || defaults.region,
-    previous: placeholders.previousSlide || defaults.previous,
-    next: placeholders.nextSlide || defaults.next,
-    slide: placeholders.slide || defaults.slide,
-    of: placeholders.of || defaults.of,
-  };
+  return DEFAULT_LABELS[lang];
 }
 
 function decorateCtas(content) {
@@ -125,7 +110,7 @@ export default async function decorate(block) {
   const slides = rows.map((row, i) => createSlide(row, i, id));
   track.append(...slides);
 
-  const labels = await getLabels(block);
+  const labels = getLabels(block);
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', labels.region);
 

@@ -29,6 +29,15 @@ export function getLanguage() {
 }
 
 /**
+ * True for pages inside a language folder (corporate pages). Keep in sync with the
+ * storefront preload check in head.html.
+ * @returns {boolean}
+ */
+export function isLocalizedPage() {
+  return findLanguageSegment().index > -1;
+}
+
+/**
  * Returns the root path of the current language, e.g. `/ar/`.
  * @returns {string} language root path, always ending with `/`
  */
@@ -58,5 +67,5 @@ export function decorateLanguage() {
   const lang = getLanguage();
   document.documentElement.lang = lang;
   document.documentElement.dir = RTL_LANGUAGES.includes(lang) ? 'rtl' : 'ltr';
-  document.documentElement.classList.toggle('localized', getLanguageRoot() !== '/');
+  document.documentElement.classList.toggle('localized', isLocalizedPage());
 }

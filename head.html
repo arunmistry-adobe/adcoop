@@ -49,17 +49,32 @@
 
 <script nonce="aem" src="/scripts/aem.js" type="module"></script>
 <script nonce="aem" src="/scripts/scripts.js" type="module"></script>
-<script nonce="aem" src="/scripts/commerce.js" type="module"></script>
 
-<link rel="modulepreload" href="/scripts/__dropins__/tools/lib/aem/configs.js" />
-<link rel="modulepreload" href="/scripts/initializers/index.js" />
-<link rel="modulepreload" href="/scripts/initializers/auth.js" />
-<link rel="modulepreload" href="/scripts/initializers/personalization.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/storefront-auth/api.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/event-bus.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/fetch-graphql.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/initializer.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/preact.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/preact-compat.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/preact-hooks.js" />
-<link rel="modulepreload" href="/scripts/__dropins__/tools/components.js" />
+<!-- storefront modules: preloaded only outside the corporate language folders (/en/, /ar/);
+     keep the language list in sync with scripts/i18n.js -->
+<script nonce="aem">
+    (function preloadStorefront() {
+        var segments = window.location.pathname.split('/').slice(0, 3);
+        if (segments.indexOf('en') > -1 || segments.indexOf('ar') > -1) return;
+        [
+            '/scripts/commerce.js',
+            '/scripts/__dropins__/tools/lib/aem/configs.js',
+            '/scripts/initializers/index.js',
+            '/scripts/initializers/auth.js',
+            '/scripts/initializers/personalization.js',
+            '/scripts/__dropins__/storefront-auth/api.js',
+            '/scripts/__dropins__/tools/event-bus.js',
+            '/scripts/__dropins__/tools/fetch-graphql.js',
+            '/scripts/__dropins__/tools/initializer.js',
+            '/scripts/__dropins__/tools/preact.js',
+            '/scripts/__dropins__/tools/preact-compat.js',
+            '/scripts/__dropins__/tools/preact-hooks.js',
+            '/scripts/__dropins__/tools/components.js',
+        ].forEach(function addPreload(href) {
+            var link = document.createElement('link');
+            link.rel = 'modulepreload';
+            link.href = href;
+            document.head.append(link);
+        });
+    }());
+</script>

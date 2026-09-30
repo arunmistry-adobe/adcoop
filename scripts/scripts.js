@@ -9,19 +9,18 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
-} from './aem.js';
-import {
-  loadCommerceEager,
-  loadCommerceLazy,
-  initializeCommerce,
-  applyTemplates,
-  decorateLinks,
-  loadErrorPage,
   decorateSections,
-  IS_UE,
-  IS_DA,
-} from './commerce.js';
-import { decorateLanguage } from './i18n.js';
+} from './aem.js';
+import { decorateLanguage, isLocalizedPage } from './i18n.js';
+
+const IS_UE = window.location.hostname.includes('ue.da.live');
+const IS_DA = new URL(window.location.href).searchParams.has('dapreview');
+
+/*
+ * Storefront (Adobe Commerce) support. Loaded only for storefront pages; pages inside a
+ * language folder (/en/, /ar/) are corporate pages and skip it entirely.
+ */
+let commerce = null;
 
 /*
  * Trusted Types default policy.
@@ -186,10 +185,11 @@ function decorateButtons(main) {
  * @param {Element} main The main element
  */
 export function decorateMain(main) {
-  decorateLinks(main);
+  if (commerce) commerce.decorateLinks(main);
   decorateIcons(main);
   buildAutoBlocks(main);
-  decorateSections(main);
+  if (commerce) commerce.decorateSections(main);
+  else decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
 }
@@ -202,16 +202,22 @@ async function loadEager(doc) {
   decorateLanguage();
   decorateTemplateAndTheme();
 
+  if (!isLocalizedPage()) commerce = await import('./commerce.js');
+
   const main = doc.querySelector('main');
   if (main) {
-    try {
-      await initializeCommerce();
+    if (commerce) {
+      try {
+        await commerce.initializeCommerce();
+        decorateMain(main);
+        commerce.applyTemplates(doc);
+        await commerce.loadCommerceEager();
+      } catch (e) {
+        console.error('Error initializing commerce configuration:', e);
+        commerce.loadErrorPage(418);
+      }
+    } else {
       decorateMain(main);
-      applyTemplates(doc);
-      await loadCommerceEager();
-    } catch (e) {
-      console.error('Error initializing commerce configuration:', e);
-      loadErrorPage(418);
     }
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
@@ -243,7 +249,7 @@ async function loadLazy(doc) {
 
   loadFooter(doc.querySelector('footer'));
 
-  loadCommerceLazy();
+  if (commerce) commerce.loadCommerceLazy();
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
@@ -254,7 +260,8 @@ async function loadLazy(doc) {
  * without impacting the user experience.
  */
 function loadDelayed() {
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  // delayed.js only holds storefront analytics
+  if (commerce) window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
 }
 
