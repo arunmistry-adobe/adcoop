@@ -120,8 +120,9 @@ function getLanguage(document, originalURL) {
 /**
  * ADCOOP's SVG artwork is hotlink-protected (only served to corporate.adcoop.com) and each file
  * wraps a large embedded photo that Document Authoring rejects. Reference a local PNG rendering
- * in the page's images folder instead; tools/importer/fetch-protected-images.mjs downloads and
- * renders the files after the import.
+ * in the page's images folder instead. The hero photo is also hosted with the page so it is
+ * delivered through the EDS image pipeline (resized, WebP) instead of the full-size original.
+ * tools/importer/fetch-protected-images.mjs downloads / renders the files after the import.
  */
 const LOCALIZED_SVG_HOSTS = ['prod-mairgroup.s3.eu-north-1.amazonaws.com', 'corporate.adcoop.com'];
 
@@ -129,9 +130,16 @@ function localizeProtectedImages(main) {
   main.querySelectorAll('img[src]').forEach((img) => {
     try {
       const src = new URL(img.getAttribute('src'));
-      if (!LOCALIZED_SVG_HOSTS.includes(src.hostname) || !/\.svg$/i.test(src.pathname)) return;
-      const name = src.pathname.split('/').pop().replace(/\.svg$/i, '');
-      img.setAttribute('src', `./images/${name}.png`);
+      if (!LOCALIZED_SVG_HOSTS.includes(src.hostname)) return;
+      const file = src.pathname.split('/').pop();
+      if (/\.svg$/i.test(file)) {
+        img.setAttribute('src', `./images/${file.replace(/\.svg$/i, '')}.png`);
+      } else if (/^hero/i.test(img.closest('table')?.querySelector('tr')?.textContent.trim() || '')) {
+        // the hero (LCP) photo is hosted with the page so EDS serves it optimized
+        img.setAttribute('src', `./images/${file}`);
+      } else {
+        return;
+      }
       img.removeAttribute('srcset');
     } catch (e) {
       // leave relative or invalid URLs untouched
