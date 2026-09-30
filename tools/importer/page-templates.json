@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://corporate.adcoop.com/ar#home",
+        "https://corporate.adcoop.com/en#home"
+      ],
+      "representativeUrl": "https://corporate.adcoop.com/en#home",
+      "description": "Corporate homepage (EN + AR language versions)",
+      "urlPattern": "/*",
+      "blocks": [
+        {
+          "name": "hero-fullbleed",
+          "instances": [
+            "#home > div.h-lvh"
+          ]
+        },
+        {
+          "name": "cards-pillars",
+          "instances": [
+            "#who-we-are div.w-full.gap-4.flex.overflow-hidden"
+          ]
+        },
+        {
+          "name": "cards-business",
+          "instances": [
+            "#our-business div.grid.gap-4"
+          ]
+        },
+        {
+          "name": "carousel-promotions",
+          "instances": [
+            "#latest-promotions div.relative.z-10.mx-auto.flex.flex-col"
+          ]
+        },
+        {
+          "name": "accordion-stores",
+          "instances": [
+            "#nearest-stores div.mt-8.grid.grid-cols-1"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "rc1",
+          "name": "Intro / Hero",
+          "selector": [
+            "#home"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-fullbleed"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc2",
+          "name": "Who We Are",
+          "selector": [
+            "#who-we-are"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-pillars"
+          ],
+          "defaultContent": [
+            "#who-we-are div.relative.section-padding.pt-16"
+          ]
+        },
+        {
+          "id": "rc3",
+          "name": "Our Business",
+          "selector": [
+            "#our-business"
+          ],
+          "style": "purple",
+          "blocks": [
+            "cards-business"
+          ],
+          "defaultContent": [
+            "#our-business div.section-padding > div.flex.flex-col.justify-center"
+          ]
+        },
+        {
+          "id": "rc4",
+          "name": "Latest Promotions",
+          "selector": [
+            "#latest-promotions"
+          ],
+          "style": "purple",
+          "blocks": [
+            "carousel-promotions"
+          ],
+          "defaultContent": [
+            "#latest-promotions div.flex.section-padding.justify-between.items-center"
+          ]
+        },
+        {
+          "id": "rc5",
+          "name": "Nearest Stores",
+          "selector": [
+            "#nearest-stores"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-stores"
+          ],
+          "defaultContent": [
+            "#nearest-stores h2"
+          ]
+        }
+      ]
+    }
+  ]
+}

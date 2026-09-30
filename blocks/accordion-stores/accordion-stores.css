@@ -1,0 +1,386 @@
+/* Accordion Stores - store locator: toolbar + search + scrollable list | map */
+.accordion-stores {
+  /* fluid type scale from source (text-16 / text-14 / text-12) */
+  --accordion-stores-text-16: clamp(14px, 13.6px + 0.125vw, 16px);
+  --accordion-stores-text-14: clamp(12px, 11.6px + 0.125vw, 14px);
+  --accordion-stores-text-12: clamp(10px, 9.6px + 0.125vw, 12px);
+  --accordion-stores-icon-pin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 21'%3E%3Cpath d='M9 0C11.3869 0 13.6761 0.948211 15.364 2.63604C17.0518 4.32387 18 6.61305 18 9C18 12.074 16.324 14.59 14.558 16.395C13.6757 17.2871 12.7129 18.0958 11.682 18.811L11.256 19.101L11.056 19.234L10.679 19.474L10.343 19.679L9.927 19.921C9.64463 20.0822 9.32513 20.1669 9 20.1669C8.67487 20.1669 8.35537 20.0822 8.073 19.921L7.657 19.679L7.137 19.359L6.945 19.234L6.535 18.961C5.42283 18.2085 4.3869 17.3491 3.442 16.395C1.676 14.589 0 12.074 0 9C0 6.61305 0.948211 4.32387 2.63604 2.63604C4.32387 0.948211 6.61305 0 9 0ZM9 6C8.60603 6 8.21593 6.0776 7.85195 6.22836C7.48797 6.37913 7.15726 6.6001 6.87868 6.87868C6.6001 7.15726 6.37913 7.48797 6.22836 7.85195C6.0776 8.21593 6 8.60603 6 9C6 9.39397 6.0776 9.78407 6.22836 10.1481C6.37913 10.512 6.6001 10.8427 6.87868 11.1213C7.15726 11.3999 7.48797 11.6209 7.85195 11.7716C8.21593 11.9224 8.60603 12 9 12C9.79565 12 10.5587 11.6839 11.1213 11.1213C11.6839 10.5587 12 9.79565 12 9C12 8.20435 11.6839 7.44129 11.1213 6.87868C10.5587 6.31607 9.79565 6 9 6Z'/%3E%3C/svg%3E");
+  --accordion-stores-icon-target: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 33 33' fill='none' stroke='black' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round'%3E%3Cpath d='M31.5208 16.2604H28.1298M28.1298 16.2604C28.1298 19.4086 26.88 22.427 24.6539 24.6531C22.4278 26.8792 19.4086 28.1298 16.2604 28.1298M28.1298 16.2604C28.1298 13.1122 26.88 10.0922 24.6539 7.86611C22.4278 5.64002 19.4086 4.39102 16.2604 4.39102M16.2604 1V4.39102M16.2604 4.39102C13.1124 4.39102 10.0934 5.63993 7.86748 7.86587C5.64154 10.0918 4.39102 13.1108 4.39102 16.2588C4.39102 19.4067 5.64154 22.4258 7.86748 24.6517C10.0934 26.8776 13.1124 28.1298 16.2604 28.1298M1 16.2604H4.39102M16.2604 31.5208V28.1298'/%3E%3Cpath d='M16.2605 23.0426C18.0592 23.0426 19.7842 22.3281 21.0561 21.0562C22.328 19.7843 23.0425 18.0593 23.0425 16.2606C23.0425 14.4618 22.328 12.7368 21.0561 11.4649C19.7842 10.1931 18.0592 9.47852 16.2605 9.47852C14.4618 9.47852 12.7367 10.1931 11.4649 11.4649C10.193 12.7368 9.47845 14.4618 9.47845 16.2606C9.47845 18.0593 10.193 19.7843 11.4649 21.0562C12.7367 22.3281 14.4618 23.0426 16.2605 23.0426Z'/%3E%3C/svg%3E");
+  --accordion-stores-icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 21'%3E%3Cpath d='M17.2583 16.6834L14.425 13.8584C15.3392 12.6938 15.8352 11.2556 15.8333 9.77507C15.8333 8.45653 15.4423 7.16759 14.7098 6.07127C13.9773 4.97494 12.9361 4.12046 11.7179 3.61587C10.4997 3.11129 9.15927 2.97926 7.86607 3.2365C6.57286 3.49373 5.38497 4.12867 4.45262 5.06102C3.52027 5.99337 2.88534 7.18126 2.6281 8.47447C2.37087 9.76767 2.50289 11.1081 3.00747 12.3263C3.51206 13.5445 4.36654 14.5857 5.46287 15.3182C6.5592 16.0507 7.84813 16.4417 9.16667 16.4417C10.6472 16.4436 12.0854 15.9476 13.25 15.0334L16.075 17.8667C16.1525 17.9448 16.2446 18.0068 16.3462 18.0491C16.4477 18.0915 16.5567 18.1132 16.6667 18.1132C16.7767 18.1132 16.8856 18.0915 16.9872 18.0491C17.0887 18.0068 17.1809 17.9448 17.2583 17.8667C17.3364 17.7893 17.3984 17.6971 17.4407 17.5955C17.4831 17.494 17.5048 17.3851 17.5048 17.2751C17.5048 17.1651 17.4831 17.0561 17.4407 16.9546C17.3984 16.853 17.3364 16.7609 17.2583 16.6834ZM4.16667 9.77507C4.16667 8.78616 4.45991 7.81946 5.00932 6.99722C5.55873 6.17497 6.33962 5.53411 7.25325 5.15567C8.16688 4.77723 9.17222 4.67822 10.1421 4.87114C11.112 5.06407 12.0029 5.54027 12.7022 6.23953C13.4015 6.9388 13.8777 7.82971 14.0706 8.79962C14.2635 9.76952 14.1645 10.7749 13.7861 11.6885C13.4076 12.6021 12.7668 13.383 11.9445 13.9324C11.1223 14.4818 10.1556 14.7751 9.16667 14.7751C7.84059 14.7751 6.56882 14.2483 5.63114 13.3106C4.69345 12.3729 4.16667 11.1012 4.16667 9.77507Z'/%3E%3C/svg%3E");
+  --accordion-stores-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  margin-block-start: 32px;
+  color: var(--text-color);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.accordion-stores .accordion-stores-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* "Use My Location": pin + label at inline-start, target icon at inline-end */
+.accordion-stores .accordion-stores-locate {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 33px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--brand-purple);
+  font-family: inherit;
+  font-size: var(--accordion-stores-text-16);
+  line-height: 1.5;
+  text-align: start;
+  cursor: pointer;
+}
+
+.accordion-stores .accordion-stores-locate::before,
+.accordion-stores .accordion-stores-locate::after {
+  content: '';
+  flex: none;
+  background-color: currentcolor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.accordion-stores .accordion-stores-locate::before {
+  width: 18px;
+  height: 21px;
+  mask-image: var(--accordion-stores-icon-pin);
+}
+
+.accordion-stores .accordion-stores-locate::after {
+  width: 33px;
+  height: 33px;
+  margin-inline-start: auto;
+  mask-image: var(--accordion-stores-icon-target);
+}
+
+.accordion-stores .accordion-stores-locate:focus-visible {
+  outline: 2px solid var(--brand-purple);
+  outline-offset: 2px;
+}
+
+.accordion-stores .accordion-stores-locate:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* search */
+.accordion-stores .accordion-stores-search {
+  position: relative;
+  margin-block-start: 20px;
+}
+
+.accordion-stores .accordion-stores-search::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 14px;
+  inset-inline-end: 16px;
+  width: 20px;
+  height: 21px;
+  background-color: var(--heading-color);
+  mask: var(--accordion-stores-icon-search) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.accordion-stores .accordion-stores-search input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  margin: 0;
+  padding-block: 8px;
+  padding-inline: 16px 44px;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background-color: #e8e8e8;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: var(--accordion-stores-text-14);
+  line-height: 1.5;
+  appearance: none;
+}
+
+.accordion-stores .accordion-stores-search input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+.accordion-stores .accordion-stores-search input:focus-visible {
+  outline: 2px solid var(--brand-purple);
+  outline-offset: -2px;
+}
+
+.accordion-stores .accordion-stores-status {
+  margin: 12px 0 0;
+  color: var(--brand-purple);
+  font-size: var(--accordion-stores-text-12);
+}
+
+/* result count is for assistive tech; location messages are shown */
+.accordion-stores .accordion-stores-status:not(.accordion-stores-status-visible),
+.accordion-stores .accordion-stores-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.accordion-stores .accordion-stores-empty {
+  margin: 0;
+  padding-block: 16px;
+  color: #374151;
+  font-size: var(--accordion-stores-text-14);
+}
+
+/* scrollable list keeps 120 stores manageable */
+.accordion-stores .accordion-stores-list {
+  max-height: 400px;
+  margin-block-start: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.accordion-stores .accordion-stores-item {
+  border-block-end: 1px solid #9ca3af;
+
+  /* skip layout/paint work for off-screen rows */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 53px;
+}
+
+.accordion-stores .accordion-stores-item[hidden] {
+  display: none;
+}
+
+.accordion-stores .accordion-stores-item-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #1f2937;
+  font-weight: 500;
+  list-style: none;
+  text-align: start;
+  cursor: pointer;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-stores .accordion-stores-item-label::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-stores .accordion-stores-item-label:focus-visible {
+  outline: 2px solid var(--brand-purple);
+  outline-offset: -2px;
+}
+
+.accordion-stores .accordion-stores-item-name {
+  font-size: var(--accordion-stores-text-14);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* down chevron at inline-end (flex order follows direction, so it mirrors in RTL) */
+.accordion-stores .accordion-stores-item-label::after {
+  content: '';
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background-color: currentcolor;
+  mask: var(--accordion-stores-icon-chevron) center / contain no-repeat;
+  transition: transform 0.3s ease-in-out;
+}
+
+.accordion-stores .accordion-stores-item[open] > .accordion-stores-item-label {
+  background-color: #f3f4f6;
+}
+
+.accordion-stores .accordion-stores-item[open] > .accordion-stores-item-label::after {
+  transform: rotate(180deg);
+}
+
+.accordion-stores .accordion-stores-item > .accordion-stores-item-label:hover {
+  background-color: var(--brand-purple);
+  color: var(--brand-lime);
+}
+
+/* store details */
+.accordion-stores .accordion-stores-item-body {
+  padding-block: 16px;
+  padding-inline: 0 24px;
+  border-block-start: 1px solid #d1d5db;
+  color: #374151;
+  font-size: var(--accordion-stores-text-12);
+  line-height: 1.5;
+}
+
+.accordion-stores .accordion-stores-item-body p {
+  margin: 0 0 8px;
+}
+
+.accordion-stores .accordion-stores-item-body p:has(+ ul) {
+  margin-block-end: 4px;
+}
+
+.accordion-stores .accordion-stores-item-body ul + p {
+  margin-block-start: 8px;
+}
+
+.accordion-stores .accordion-stores-item-body > :last-child {
+  margin-block-end: 0;
+}
+
+.accordion-stores .accordion-stores-item-body strong {
+  font-weight: 600;
+}
+
+.accordion-stores .accordion-stores-item-body ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.accordion-stores .accordion-stores-item-body li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.accordion-stores .accordion-stores-item-body li + li {
+  margin-block-start: 4px;
+}
+
+.accordion-stores .accordion-stores-day {
+  text-transform: capitalize;
+}
+
+.accordion-stores .accordion-stores-item-body a {
+  color: #2563eb;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.accordion-stores .accordion-stores-item-body a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* map panel */
+.accordion-stores .accordion-stores-map {
+  display: flex;
+  flex-direction: column;
+  order: -1;
+  min-width: 0;
+}
+
+.accordion-stores .accordion-stores-map-frame {
+  position: relative;
+  flex: 1 1 auto;
+  height: 500px;
+  background-color: rgb(78 48 128 / 50%);
+}
+
+.accordion-stores .accordion-stores-map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.accordion-stores .accordion-stores-map-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding-block: 12px 0;
+  font-size: var(--accordion-stores-text-14);
+}
+
+.accordion-stores .accordion-stores-map-name {
+  margin: 0;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.accordion-stores .accordion-stores-directions,
+.accordion-stores .accordion-stores-item-body .accordion-stores-directions {
+  color: var(--brand-purple);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: inherit;
+}
+
+.accordion-stores .accordion-stores-directions:hover,
+.accordion-stores .accordion-stores-item-body .accordion-stores-directions:hover {
+  color: var(--brand-lavender);
+}
+
+.accordion-stores .accordion-stores-directions[hidden] {
+  display: none;
+}
+
+/* arrow after the directions link, mirrored in RTL */
+.accordion-stores .accordion-stores-directions::after {
+  content: '\2192';
+  content: '\2192' / '';
+  display: inline-block;
+  margin-inline-start: 6px;
+}
+
+.accordion-stores .accordion-stores-directions:dir(rtl)::after {
+  transform: scaleX(-1);
+}
+
+@media (min-width: 900px) {
+  /* 12-column grid: list spans 4, map spans 8 */
+  .accordion-stores {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .accordion-stores .accordion-stores-panel {
+    grid-column: span 4;
+  }
+
+  .accordion-stores .accordion-stores-list {
+    max-height: 60vh;
+  }
+
+  /* map fills the row height set by the list column */
+  .accordion-stores .accordion-stores-map {
+    grid-column: span 8;
+    order: 0;
+  }
+
+  .accordion-stores .accordion-stores-map-frame {
+    height: auto;
+    min-height: 400px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-stores .accordion-stores-item-label,
+  .accordion-stores .accordion-stores-item-label::after {
+    transition: none;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "variantName": "carousel-promotions",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "on-purple",
+    "density": "medium",
+    "purpose": "promotion-flyers",
+    "imagePattern": "contained-flyer-image",
+    "structure": "image + 2 CTAs",
+    "notes": "heading with prev/next arrows in the header row, flyer image beside stacked icon/lavender CTA buttons (WhatsApp, download); arrows mirror in RTL; arrows hidden with a single slide"
+  },
+  "contentPattern": "Carousel (2 columns per row): cell 1 = flyer image; cell 2 = CTA links (e.g. 'Get Weekly Deals on WhatsApp' -> https://wa.me/..., 'Download Promotions Now!' -> promotion PDF). WhatsApp/download icons are applied by CSS based on the link URL. One row per promotion.",
+  "options": [],
+  "memberVariantIds": ["carousel-promotions"],
+  "usage": {
+    "pagesUsing": ["https://corporate.adcoop.com/en#home", "https://corporate.adcoop.com/ar#home"],
+    "reuseCount": 0,
+    "lastUsed": "2026-09-29"
+  }
+}

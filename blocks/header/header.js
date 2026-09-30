@@ -6,10 +6,12 @@ import { getConfigValue } from '@dropins/tools/lib/aem/configs.js';
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { fetchPlaceholders, getProductLink, rootLink } from '../../scripts/commerce.js';
+import { getLanguageRoot } from '../../scripts/i18n.js';
 
 import renderAuthCombine from './renderAuthCombine.js';
 import { renderAuthDropdown } from './renderAuthDropdown.js';
 import renderSellerAssistedBuyingBanner from './renderSellerAssistedBuyingBanner.js';
+import renderLocalizedHeader from './renderLocalizedHeader.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -167,6 +169,14 @@ function setupSubmenu(navSection) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // pages inside a language folder (/en/, /ar/) use the localized site header
+  // without the storefront tools
+  if (getLanguageRoot() !== '/') {
+    const localizedNav = await loadFragment(`${getLanguageRoot()}nav`);
+    if (localizedNav) await renderLocalizedHeader(block, localizedNav);
+    return;
+  }
+
   // Render a banner at the top of the page if seller assisted buying session identified
   const sellerAssistedBuyingBanner = await renderSellerAssistedBuyingBanner();
   if (sellerAssistedBuyingBanner && !document.querySelector('.seller-assisted-buying-banner')) {
@@ -175,7 +185,7 @@ export default async function decorate(block) {
 
   // load nav as fragment
   const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+  const navPath = navMeta ? new URL(navMeta, window.location).pathname : `${getLanguageRoot()}nav`;
   const fragment = await loadFragment(navPath);
 
   // decorate nav DOM

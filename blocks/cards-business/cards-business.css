@@ -1,0 +1,114 @@
+/* values extracted from corporate.adcoop.com #our-business tiles */
+.cards-business .cards-business-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-business .cards-business-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 6 / 1;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+}
+
+.cards-business .cards-business-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.cards-business .cards-business-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* source stretches the photo to the 6:1 tile and rests zoomed-in; hover zooms out */
+.cards-business .cards-business-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  transform: scale(1.2);
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cards-business .cards-business-linked:hover img {
+  transform: scale(1);
+}
+
+/* legibility shade from the reading-start edge */
+.cards-business .cards-business-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgb(0 0 0) -11.18%, rgb(255 255 255 / 0%) 110.38%);
+}
+
+[dir='rtl'] .cards-business .cards-business-item::before {
+  background: linear-gradient(270deg, rgb(0 0 0) -11.18%, rgb(255 255 255 / 0%) 110.38%);
+}
+
+.cards-business .cards-business-body {
+  padding-inline: 40px;
+  text-align: start;
+}
+
+main .cards-business .cards-business-body h2,
+main .cards-business .cards-business-body h3,
+main .cards-business .cards-business-body h4,
+main .cards-business .cards-business-body p {
+  margin: 0;
+  color: inherit;
+  font-family: var(--heading-font-family);
+  font-size: clamp(18px, 15.2px + 0.875vw, 32px);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+main .cards-business a.cards-business-link,
+main .cards-business a.cards-business-link:hover {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* stretched link: the whole tile is the click target */
+.cards-business .cards-business-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cards-business .cards-business-link:focus-visible {
+  outline: none;
+}
+
+.cards-business .cards-business-linked:focus-within {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+@media (min-width: 900px) {
+  .cards-business .cards-business-list {
+    grid-template-columns: repeat(2, 1fr);
+    margin-block-start: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-business .cards-business-image img {
+    transition: none;
+  }
+}
