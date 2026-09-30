@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/ue-utils.js';
 
 /**
  * Full-bleed hero: background image with overlaid heading + text.
@@ -29,6 +30,8 @@ export default function decorate(block) {
       : picture;
     // the hero is the LCP candidate
     const optimizedImg = optimized.querySelector('img');
+    // keep Universal Editor instrumentation on the rebuilt image
+    if (img && optimizedImg) moveInstrumentation(img, optimizedImg);
     if (optimizedImg) {
       optimizedImg.loading = 'eager';
       optimizedImg.fetchPriority = 'high';

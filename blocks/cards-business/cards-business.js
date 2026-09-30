@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/ue-utils.js';
 
 /**
  * Business-line banner tiles: background photo + overlaid (linked) title.
@@ -15,6 +16,8 @@ export default function decorate(block) {
 
     const li = document.createElement('li');
     li.className = 'cards-business-item';
+    // keep Universal Editor instrumentation on the rebuilt item
+    moveInstrumentation(row, li);
 
     const body = document.createElement('div');
     body.className = 'cards-business-body';
@@ -42,6 +45,7 @@ export default function decorate(block) {
           { width: '750' },
         ])
         : picture);
+      if (img) moveInstrumentation(img, media.querySelector('img'));
       li.append(media);
     } else {
       li.classList.add('cards-business-no-image');

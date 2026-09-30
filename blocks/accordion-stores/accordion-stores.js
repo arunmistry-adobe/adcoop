@@ -4,6 +4,8 @@
  * Adds a search filter, "Use My Location" and a Google Maps embed for the selected store.
  */
 
+import { moveInstrumentation } from '../../scripts/ue-utils.js';
+
 const LABELS = {
   en: {
     locate: 'Use My Location',
@@ -158,6 +160,8 @@ export default function decorate(block) {
     const index = stores.length;
     const details = document.createElement('details');
     details.className = 'accordion-stores-item';
+    // keep Universal Editor instrumentation on the rebuilt item
+    moveInstrumentation(row, details);
     details.name = uid; // exclusive accordion where supported
     details.dataset.index = index;
 

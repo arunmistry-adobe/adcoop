@@ -116,6 +116,7 @@ const setupUEEventHandlers = () => {
 
         switch (block) {
           case 'accordion':
+          case 'accordion-stores':
             blockEl.querySelectorAll('details').forEach((details) => {
               details.open = false;
             });
@@ -125,6 +126,10 @@ const setupUEEventHandlers = () => {
             if (index) {
               showSlide(blockEl, index);
             }
+            break;
+          case 'carousel-promotions':
+            // the block's scroll observer keeps its controls in sync
+            if (element !== blockEl) element.scrollIntoView({ block: 'nearest', inline: 'start' });
             break;
           case 'tabs':
             if (element === block) {

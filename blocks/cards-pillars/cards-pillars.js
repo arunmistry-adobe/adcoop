@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/ue-utils.js';
 
 /**
  * Brand pillar tiles: optional background image, title, clamped description and a
@@ -16,6 +17,8 @@ export default function decorate(block) {
 
     const li = document.createElement('li');
     li.className = 'cards-pillars-item';
+    // keep Universal Editor instrumentation on the rebuilt item
+    moveInstrumentation(row, li);
 
     const tile = document.createElement('div');
     tile.className = 'cards-pillars-tile';
@@ -44,6 +47,7 @@ export default function decorate(block) {
       media.append(img
         ? createOptimizedPicture(img.src, img.alt || '', false, [{ width: '600' }])
         : picture);
+      if (img) moveInstrumentation(img, media.querySelector('img'));
       tile.append(media);
     } else {
       li.classList.add('cards-pillars-no-image');
