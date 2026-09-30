@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 /*
- * Localizes the ADCOOP SVG artwork referenced by the imported pages.
- *
- * The source SVGs are hotlink-protected (only served to corporate.adcoop.com) and each one
- * wraps a large embedded photo (~0.7-1 MB), which Document Authoring rejects. The import
- * script rewrites them to ./images/<name>.png; this script downloads each SVG and renders it
- * to a transparent PNG at 2x, next to the page (content/<lang>/images/).
+ * Localizes the ADCOOP images the import script points at ./images/<file> (next to the page,
+ * content/<lang>/images/):
+ * - raster images (e.g. the hero photo) are downloaded as-is, so EDS serves them optimized;
+ * - SVG artwork is hotlink-protected (only served to corporate.adcoop.com) and each file wraps
+ *   a large embedded photo that Document Authoring rejects, so it is downloaded and rendered
+ *   to a transparent PNG at 2x.
  *
  * Usage (after an import):
  *   node tools/importer/fetch-protected-images.mjs
@@ -33,11 +33,11 @@ async function loadPlaywright() {
   }
 }
 
-async function downloadSvg(name) {
+async function download(file) {
   for (const base of SOURCES) {
     // eslint-disable-next-line no-await-in-loop
-    const resp = await fetch(`${base}${name}.svg`, { headers: { Referer: REFERER, 'User-Agent': 'Mozilla/5.0' } });
-    if (resp.ok) return resp.text();
+    const resp = await fetch(`${base}${file}`, { headers: { Referer: REFERER, 'User-Agent': 'Mozilla/5.0' } });
+    if (resp.ok) return resp;
   }
   return null;
 }
@@ -53,18 +53,31 @@ const page = await browser.newPage({ deviceScaleFactor: SCALE });
 
 for (const doc of pages) {
   const html = fs.readFileSync(doc, 'utf8');
-  const names = [...new Set([...html.matchAll(/src="\.\/images\/([^"?]+)\.png[^"]*"/g)].map((m) => m[1]))];
+  const files = [...new Set([...html.matchAll(/src="\.\/images\/([^"?]+)[^"]*"/g)].map((m) => m[1]))];
   const dir = path.join(path.dirname(doc), 'images');
   fs.mkdirSync(dir, { recursive: true });
-  for (const name of names) {
-    const target = path.join(dir, `${name}.png`);
+  for (const file of files) {
+    const target = path.join(dir, file);
     if (fs.existsSync(target) && fs.statSync(target).size > 0) continue;
+    // raster images (e.g. the hero photo) exist on the source as-is
     // eslint-disable-next-line no-await-in-loop
-    const svg = await downloadSvg(name);
-    if (!svg) {
-      console.error(`FAILED ${name}: not found on any source`);
+    const direct = await download(file);
+    if (direct) {
+      // eslint-disable-next-line no-await-in-loop
+      fs.writeFileSync(target, Buffer.from(await direct.arrayBuffer()));
+      console.log(`saved ${target} (${fs.statSync(target).size} bytes)`);
       continue;
     }
+    // otherwise the PNG is a rendering of the source SVG
+    const name = file.replace(/\.png$/i, '');
+    // eslint-disable-next-line no-await-in-loop
+    const svgResp = await download(`${name}.svg`);
+    if (!svgResp) {
+      console.error(`FAILED ${file}: not found on any source`);
+      continue;
+    }
+    // eslint-disable-next-line no-await-in-loop
+    const svg = await svgResp.text();
     // render at the SVG's intrinsic size on a transparent page
     // eslint-disable-next-line no-await-in-loop
     await page.setContent(`<html><body style="margin:0;background:transparent">${svg}</body></html>`);
