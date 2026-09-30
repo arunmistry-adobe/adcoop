@@ -273,6 +273,8 @@ async function loadPage() {
 
 // UE Editor support before page load
 if (IS_UE) {
+  // Universal Editor sizes its canvas to the page height, so blocks cap viewport-based heights
+  document.documentElement.classList.add('ue-canvas');
   // eslint-disable-next-line import/no-unresolved
   await import(`${window.hlx.codeBasePath}/scripts/ue.js`).then(({ default: ue }) => ue());
 }

@@ -19,6 +19,11 @@ main > .section.hero-fullbleed-container > .hero-fullbleed-wrapper {
   color: #fff;
 }
 
+/* Universal Editor grows its canvas with the page: cap the viewport height to stop a resize loop */
+.ue-canvas .hero-fullbleed {
+  min-height: min(100vh, 800px);
+}
+
 .hero-fullbleed .hero-fullbleed-media {
   position: absolute;
   inset: 0;
